@@ -7,14 +7,14 @@
         android:layout_height="match_parent" >
         <TextView
             android:id="@+id/tvSymbol"
-            android:layout_width="200px"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_marginLeft="10px"
+            android:layout_marginLeft="10dp"
             android:text="Symbol" />
         <TextView
-            android:layout_marginLeft="20px"
-            android:layout_marginRight="200px"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="80dp"
             android:id="@+id/tvPrice"
             android:textAlignment="viewEnd"
             android:layout_width="match_parent"
