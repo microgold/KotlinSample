@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+ext.anko_version='0.10.1'
+
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -31,4 +34,13 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
+    testCompile 'org.json:json:20140107'
+    compile "org.jetbrains.anko:anko-coroutines:$anko_version"
+    compile "org.jetbrains.anko:anko-commons:$anko_version"
+
+    compile 'com.google.code.gson:gson:2.2.+'
+
+
 }

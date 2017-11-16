@@ -1,11 +1,14 @@
 package com.gdx_example.jcity_000.kotlinsample
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,9 +19,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // set list view
-        setUpListView2()
+        setUpListView()
 
-
+        setupButtonToAddStock()
 
         setSupportActionBar(toolbar)
 
@@ -28,7 +31,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setUpListView() {
+    @SuppressLint("WrongViewCast")
+    fun setupButtonToAddStock() {
+        val button = findViewById<Button>(R.id.priceSymbolButton);
+        button.setOnClickListener {
+            val textbox = findViewById<EditText>(R.id.symbolEditText)
+            val symbol = textbox.text.toString()
+            addStockToWatch(symbol.toUpperCase().trim())
+            textbox.setText("")
+        }
+
+
+    }
+
+    fun setUpListView2() {
         val listView = findViewById<ListView>(R.id.listView1)
 
         val values = arrayOf(
@@ -40,21 +56,36 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values)
 
-        listView.adapter =adapter
+        listView.adapter = adapter
 
     }
 
-    fun setUpListView2()
-    {
+    var ibmPrice: String = ""
+
+    fun setUpListView() {
         val stocks = ArrayList<Stock>()
-        stocks.add(Stock("IBM", 120.0f))
-        stocks.add(Stock("FB", 177.0f))
-        stocks.add(Stock("MSFT", 84.0f))
+
+        // find the list view in the layout file
+        val listView = findViewById<ListView>(R.id.listView1)
 // Create the adapter to convert the array to views
         val adapter = StockAdapter(this, stocks)
 // Attach the adapter to a ListView
-        val listView = findViewById<ListView>(R.id.listView1)
+
         listView.adapter = adapter
+        addStocksToWatch()
+
+    }
+
+    fun addStockToWatch(stock: String) {
+        val listView = findViewById<ListView>(R.id.listView1)
+        StockService().execute(listView.getAdapter() as StockAdapter, stock)
+    }
+
+    fun addStocksToWatch() {
+        val listView = findViewById<ListView>(R.id.listView1)
+        StockService().execute(listView.getAdapter() as StockAdapter, "IBM")
+        StockService().execute(listView.getAdapter() as StockAdapter, "FB")
+        StockService().execute(listView.getAdapter() as StockAdapter, "MSFT")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

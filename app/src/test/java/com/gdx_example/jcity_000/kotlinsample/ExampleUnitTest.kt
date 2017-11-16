@@ -1,6 +1,8 @@
 package com.gdx_example.jcity_000.kotlinsample
 
+
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.util.*
 
@@ -13,6 +15,14 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun check_pricer() {
+        var pricer = AlphaVantageService( ArrayList<Stock>())
+        var result  = pricer.getPrice("IBM")
+        println(result)
+        assertTrue(result > 0)
     }
 
     @Test

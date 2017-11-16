@@ -22,7 +22,13 @@ class Stock
 /**
  * Created by jcity_000 on 11/12/2017.
  */
-class StockAdapter(context: Context, users: ArrayList<Stock>) : ArrayAdapter<Stock>(context, 0, users) {
+class StockAdapter(context: Context, stocks: ArrayList<Stock>) : ArrayAdapter<Stock>(context, 0, stocks) {
+
+    val items = stocks
+
+    fun getAllStocks() : ArrayList<Stock> {
+        return items
+    }
 
     override fun getView(position: Int, convertView1: View?, parent: ViewGroup): View {
         var convertView = convertView1
@@ -37,8 +43,17 @@ class StockAdapter(context: Context, users: ArrayList<Stock>) : ArrayAdapter<Sto
         val tvPrice = convertView!!.findViewById<TextView>(R.id.tvPrice)
         // Populate the data into the template view using the data object
         tvSymbol.setText(stock!!.symbol)
-        tvPrice.setText(stock!!.price.toString())
+        if (stock!!.price < 0)
+            tvPrice.setText("n/a")
+        else
+            tvPrice.setText(stock!!.price.toString())
         // Return the completed view to render on screen
         return convertView
     }
+
+    override fun getItem(position: Int): Stock {
+        return super.getItem(position)
+    }
+
+
 }
